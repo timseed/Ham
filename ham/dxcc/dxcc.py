@@ -3,17 +3,81 @@ import pprint
 import pkg_resources
 
 
-
 class dxcc(object):
+
+    def __init__(self, Call_Starts, Country_Name, CQ_Zone,
+                 ITU_Zone, continent_abbreviation, Latitude, Longitude,
+                 Local_time_offset):
+
+        self._Call_Starts = Call_Starts
+        self._Country_Name = Country_Name
+        self._CQ_Zone = CQ_Zone
+        self._ITU_Zone = ITU_Zone
+        self._continent_abbreviation = continent_abbreviation
+        self._Latitude = Latitude
+        self._Longitude = Longitude
+        self._Local_time_offset =Local_time_offset
+
+    def show(self):
+        print('{0}'.format(self.dump())
+              )
+
+    def dump(self):
+        return str.format(
+            'Country {}:\n\tCQ\t{}\n\tITU\t{}\n\tAbbv\t{}\n\t\tPos\n\t\t\tLat\t{}\n\t\t\tLon\t{}\n\t',
+            self._Country_Name,
+            self._CQ_Zone,
+            self._ITU_Zone,
+            self._continent_abbreviation,
+            self._Latitude,
+            self._Longitude,
+        )
+
+
+    def Call_Starts(self):
+        return self._Call_Starts
+
+    @property
+    def Country_Name(self):
+        return self._Country_Name
+
+    @property
+    def CQ_Zone(self):
+        return self._CQ_Zone
+
+    @property
+    def ITU_Zone(self):
+        return self._ITU_Zone
+
+    @property
+    def continent_abbreviation(self):
+        return self._continent_abbreviation
+
+
+    def Latitude(self):
+        return float(self._Latitude)
+
+
+    def Longitude(self):
+        return float(self._Longitude)
+
+    @property
+    def Local_time_offset(self):
+        return self._Local_time_offset
+
+
+class dxcc_all(object):
     def __init__(self):
-        self._dxcc = {}
+        self._dxcclist = {}
 
     def RemoveWAE(self):
         """
         Some prefixes exist only for WAE
-        Not yet implemented
         :return:
         """
+
+    def __len__(self):
+        return len(self._dxcclist)
 
     def correctdata(self, prefix, DxRec):
         """
@@ -29,7 +93,8 @@ class dxcc(object):
         :param DxRec:
         :return: prefix, DxRec
         """
-
+        if prefix == "ZL5(30)[71]":
+            junk = 1
         prefix = prefix.replace(' ', '')
         m = re.search('[^A-Za-z0-9]', prefix)
         if m != None:
@@ -72,10 +137,15 @@ class dxcc(object):
         return prefix, DxRec
 
     def read(self):
-        self._dxcc = {}
+        self._dxcclist = {}
         try:
-            file = pkg_resources.resource_filename(__name__, "cty.dat")
-            txt = open(file).read()
+            from inspect import getsourcefile
+            from os import chdir
+            from os.path import abspath, dirname
+
+            where_are_we = dirname(abspath(getsourcefile(lambda: 0)))
+
+            txt = open(where_are_we + "/cty.dat").read()
             element = txt.split(';')
             for e in element:
                 if len(e) > 0:
@@ -87,40 +157,44 @@ class dxcc(object):
                             try:
                                 tmp_parts = parts[0:7]
                                 clean_prefix, tmp_parts_2 = self.correctdata(p, tmp_parts)
+                                d = dxcc(Call_Starts=clean_prefix,
+                                         Country_Name=tmp_parts_2[0],
+                                         CQ_Zone=tmp_parts_2[1],
+                                         ITU_Zone=tmp_parts_2[2],
+                                         continent_abbreviation=tmp_parts_2[3],
+                                         Latitude=tmp_parts_2[4],
+                                         Longitude=tmp_parts_2[5],
+                                         Local_time_offset=tmp_parts_2[6])
 
-                                self._dxcc[clean_prefix] = tmp_parts_2
-                                print("Array has ", str(len(self._dxcc)))
+                                self._dxcclist[clean_prefix] = d
+                                print("Array has ", str(len(self._dxcclist)))
                             except IndexError:
-                                print("Error" + e)
+                                print("Error" + str(e))
                                 pass
-                            except:
-                                print("Some other error")
+                            except Exception as e:
+                                print("Some other error " + str(e))
                     except IndexError:
                         print("Error" + e)
                         pass
                     except:
                         print("Some other error")
-        except:
-            print("File Opening Error" + file)
+        except FileNotFoundError:
+            print("File Opening Error")
             exit(1)
 
-        pprint.pprint(self._dxcc)
 
     def show(self, dx_station):
 
-        for dx in self._dxcc:
+        for dx in self._dxcclist:
             if dx_station.startswith(dx):
-                print(str.format(
-                    'Country {}:\n\tCQ\t{}\n\tITU\t{}\n\tAbbv\t{}\n\t\tPos\n\t\t\tLat\t{}\n\t\t\tLon\t{}\n\tTZ\t{}',
-                    self._dxcc[dx][0], self._dxcc[dx][1],
-                    self._dxcc[dx][2], self._dxcc[dx][3], self._dxcc[dx][4], self._dxcc[dx][5], self._dxcc[dx][6]))
-                # else:
-                #    print("Error "+dx+" Not found")
+                self._dxcclist[dx].show()
+                return self._dxcclist[dx]
+        return None
 
+   
     def showall(self):
-        for a in sorted(self._dxcc):
-            print(str.format("Prefix {} {} ", a, self._dxcc[a][0]))
-        pprint.pprint(self._dxcc['DU'])
+        for a in sorted(self._dxcclist):
+            self._dxcclist[a].show()
 
     def std_call(self, call):
         """
@@ -153,15 +227,15 @@ class dxcc(object):
 
         """
         match = None
-        for a in sorted(self._dxcc):
-            if str(self._dxcc[a]).startswith(call):
-                match = self._dxcc[a]
+        for a in sorted(self._dxcclist):
+            if self._dxcclist[a].Call_Starts().startswith(call):
+                match = self._dxcclist[a]
                 break
         return match
 
 
 if __name__ == "__main__":
-    d = dxcc()
+    d = dxcc_all()
     d.read()
     d.showall()
     # d.show('G')

@@ -22,7 +22,6 @@ class dxspider(object):
     def __del__(self):
         self.logger.info(str.format('destructor being called '))
 
-
     def do_connect(self):
         self.logger.info(str.format('Do_Connect'))
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

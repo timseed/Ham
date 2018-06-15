@@ -45,8 +45,10 @@ import os
 from time import sleep
 import logging
 
+class Serial3(serial):
 
-class Serial3(serial.Serial):
+    #def __init__(self,port, speed, timeout):
+    #    super(Serial3,self).__init__(port,speed,timeout)
 
     def write(self, cmd):
         cmd = bytes(cmd.encode('utf-8'))

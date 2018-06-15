@@ -1,9 +1,9 @@
-from ham.adif import *
-from ham.beacon import *
-from ham.dxcc import *
-from ham.qsosvr import *
-from ham.rbn import *
-from ham.telnet import *
-from ham.radio import *
-from ham.rotator import *
+from Ham.adif import *
+from Ham.beacon import *
+from Ham.dxcc import *
+from Ham.qsosvr import *
+from Ham.radio import *
+from Ham.rbn import *
+#from Ham.rotator import *
+from Ham.telnet import *
 
