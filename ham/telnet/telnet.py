@@ -3,7 +3,6 @@ import socket, select
 import sys
 
 
-
 class telnet(object):
 
     def __init__(self):
