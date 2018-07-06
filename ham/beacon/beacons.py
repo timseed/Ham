@@ -45,12 +45,13 @@ class beacon(object):
 class beacons(object):
     # Some Signals we want to send from this class
     freq = [14.1, 18.11, 21.15, 24.930, 28.2]  # in Mhz
+    bands = [14, 18, 21, 24, 28]  # in Mhz
     ref_datetime = datetime.datetime(2016, 1, 1, 0, 0, 1)
+    ALL_BANDS=-1
 
     def __init__(self, ScreenOutput=False):
         self.logger = logging.getLogger(__name__)
-        self.bands = [14, 18, 21, 24, 28]  # in Mhz
-        self.selected_band = -1  # Means ALL BANDS
+        self.selected_band = beacons.ALL_BANDS  # Means ALL BANDS
         self.beacons = []
         self.ScreenOutput = ScreenOutput
         # Setup the Beacon Definitions
@@ -74,18 +75,28 @@ class beacons(object):
         self.beacons.append(beacon('YV5B', 'Venezuela', '02:50', '00:00', '00:10', '00:20', '00:30', 'RCV', 'OK'))
         self.logger.info("Beacon class initialized")
 
-    def SetBand(self, band):
-        if band in self.bands:
-            self.selected_band = self.bands.index(band)
+    def SetBand_in_Mhz(self, band):
+        """
+        Sets the Band to Specifically to listen too
+        Value show be in beacon.Bands
+
+        :param band:  14, 18, 21, 24, 28
+        :return:  True/False
+        """
+        if band in beacons.bands:
+            self.selected_band = beacons.bands.index(band)
             self.logger.info(str.format('Band changed to {}', band))
             self.logger.info(str.format('Freq to Listen is {}', self.freq[self.selected_band]))
             self.logger.info(str.format('Freq to Listen is {}', self.freq[self.selected_band]))
             if self.ScreenOutput:
                 print('' + (str.format('Band changed to {}', band)))
                 print('' + (str.format('Freq to Listen is {}', self.freq[self.selected_band])))
+            return True
 
         else:
+            self.selected_band= beacons.ALL_BANDS
             self.logger.error(str.format('Bad Band requested {}', band))
+            return False
 
     def getdelay(self):
         tnow = datetime.datetime.now()
@@ -104,6 +115,14 @@ class beacons(object):
         return (Min, Sec)
 
     def getstation(self):
+        """"
+        Calculates the Stations which are now active
+        TO Restrict. call SetBand(20) before using this method.
+
+        :return: List - each element is a tuple
+        Call - Country - Frequency (Mhz)
+
+        """
         ts_now = datetime.datetime.now()
         time_diff = (beacons.ref_datetime - ts_now).seconds
         next_beacon = ('Unk', 'Unk')
@@ -162,6 +181,16 @@ class beacons(object):
             time.sleep(delay)
             tnow, delay = self.getdelay()
         self.logger.info('Loop run ended')
+
+    def beacon_now(self):
+        '''
+
+        calculate the active beacons now
+
+        :return:         Return a dictionary of Band:Call(Name)
+
+        '''
+
 
     def dump_band(self, band_id):
         self.logger.info(str.format('Dumping Band ID {}', band_id))
