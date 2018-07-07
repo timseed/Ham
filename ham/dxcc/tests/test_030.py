@@ -1,5 +1,5 @@
-from Ham.HamTest import HamTest
-from Ham.dxcc import dxcc_all
+from ham.HamTest import HamTest
+from ham.dxcc import dxcc_all
 
 
 def test_10():

@@ -1,6 +1,6 @@
 import logging
-from Ham.rbn import HamBand
-from Ham.dxcc import dxcc_all
+from ham.rbn import HamBand
+from ham.dxcc import dxcc_all
 from datetime import datetime
 
 class WorkedCountries(object):

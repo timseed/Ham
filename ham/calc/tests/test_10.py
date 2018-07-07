@@ -1,6 +1,6 @@
-from Ham.HamTest import HamTest
-from Ham.calc import bearing
-from Ham.calc import locator
+from ham.HamTest import HamTest
+from ham.calc import bearing
+from ham.calc import locator
 
 
 def test_10():

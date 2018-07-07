@@ -11,7 +11,7 @@
 #   2.  Install and set-up the RAK Rotator and Controller in accordance
 #       with the Alfaspid RAK Manual and ensure that it is working with the
 #       manual controls on the controller.
-#   3.  Obtain a controller program such as Ham Radio Deluxe or N1MM to
+#   3.  Obtain a controller program such as ham Radio Deluxe or N1MM to
 #       confirm that the RS232 or USB connection between the Computer
 #       and Controller are fully functional.
 

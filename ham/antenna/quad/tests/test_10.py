@@ -1,5 +1,5 @@
-from Ham.HamTest import HamTest
-from Ham.antenna.quad import quad
+from ham.HamTest import HamTest
+from ham.antenna.quad import quad
 
 
 def test_10():

@@ -1,5 +1,5 @@
-from Ham.HamTest import HamTest
-from Ham.antenna.wind_force import wind_force
+from ham.HamTest import HamTest
+from ham.antenna.wind_force import wind_force
 
 
 def test_10():

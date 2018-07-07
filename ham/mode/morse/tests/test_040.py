@@ -1,5 +1,5 @@
-from Ham.HamTest import HamTest
-from Ham.mode import morse
+from ham.HamTest import HamTest
+from ham.mode import morse
 
 
 def test_40():
