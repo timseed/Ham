@@ -1,13 +1,14 @@
-from distutils.core import setup
+from setuptools import setup
 
 setup(
-    name='ham',
-    version='1.0.0.11',
-    packages=['ham', 'ham.rbn', 'ham.rbn.build', 'ham.rbn.build.lib', 'ham.adif', 'ham.dxcc', 'ham.beacon',
-              'ham.qsosvr', 'ham.telnet'],
+    name='Ham',
+    version='1.0.0.13',
+    packages=['Ham', 'Ham.rbn', 'Ham.adif', 'Ham.calc', 'Ham.dxcc', 'Ham.mode', 'Ham.mode.morse',
+              'Ham.radio', 'Ham.beacon', 'Ham.qsosvr', 'Ham.telnet', 'Ham.antenna', 'Ham.antenna.quad',
+              'Ham.antenna.wind_force', 'Ham.HamTest', 'Ham.rotator', 'Ham.rbn'],
     url='',
     license='',
-    author='tim',
+    author='tim seed',
     author_email='tim@sy-edm.com',
-    description=''
+    description='My Ham Radio Library. import Ham .... and you are ready to go'
 )

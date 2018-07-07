@@ -8,6 +8,9 @@ __author__ = 'timseed'
 
 
 class beaconFld(Enum):
+    """
+    Create 3 Enums using a range
+    """
     call, location, freq = range(3)
 
 
@@ -99,6 +102,11 @@ class beacons(object):
             return False
 
     def getdelay(self):
+        """
+        Calculate the delay before the auto detecting mechanism should start
+        This should be a delaye of between 0 and 10 seconds only
+        :return: time_now, delay_in_Seconds
+        """
         tnow = datetime.datetime.now()
         delay = 10.0 - tnow.timestamp() % 10
         self.logger.info(str.format("tnow {}   delay {}", tnow, delay))
@@ -182,17 +190,16 @@ class beacons(object):
             tnow, delay = self.getdelay()
         self.logger.info('Loop run ended')
 
-    def beacon_now(self):
-        '''
-
-        calculate the active beacons now
-
-        :return:         Return a dictionary of Band:Call(Name)
-
-        '''
-
 
     def dump_band(self, band_id):
+        """
+        Debugging Routine
+
+            This is output to the logger not returned as a string.
+
+        :param band_id: Band index (0-4)
+        :return:    None
+        """
         self.logger.info(str.format('Dumping Band ID {}', band_id))
         for b in self.beacons:
             self.logger.info(str.format('Time offset {} ', b.band_time[band_id]))
