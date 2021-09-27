@@ -41,7 +41,7 @@ class HamBand(object):
         return rv
 
     def index(self, band_in_meters: int) -> int:
-        "Return the INDEX of the Band"
+        """Return the INDEX of the Band"""
         if band_in_meters in self.Band:
             return self.Band.index(band_in_meters)
         else:
