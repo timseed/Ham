@@ -10,7 +10,7 @@ class LoadCw:
         with open(filename,"rt") as data_in:
             for l in data_in.read().split('\n'):
                 if len(l):
-                    spot = CwSpot(datetime.strptime(l[0:20],'%Y-%m-%d %H:%M:%S%z'),
+                    spot = CwSpot(datetime.strptime(l[0:20],'%Y-%m-%d %H:%M:%SZ'),
                                float(l[21:30]),
                                l[30:43].strip(),
                                l[44:61].strip(),

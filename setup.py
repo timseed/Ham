@@ -23,7 +23,8 @@ setup(
             'recommonmark',
             'black',
             'pylint',
-            'mock_pyserial'
+            'mock_pyserial',
+            'mock'
         ]},
     #Dev can be triggered by
     #python setup.py sdist
