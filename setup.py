@@ -16,6 +16,7 @@ setup(
     install_requires=requirements,
     extras_require={
         'dev': [
+            'bumpversion',
             'pytest',
             'pytest-pep8',
             'pytest-cov',
