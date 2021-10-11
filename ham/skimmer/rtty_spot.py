@@ -28,7 +28,7 @@ class RttySpot:
             'freq': self.freq, 
             'call': self.call,
             'when_no_sec': self.when_no_sec,
-            'strength': self.stength,
+            'strength': self.strength,
             'speed': self.speed,
             'op': self.op,
             'mode': self.mode,

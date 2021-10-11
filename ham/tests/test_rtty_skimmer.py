@@ -65,6 +65,6 @@ class TestRttySkimmer(TestCase):
         self.assertIsInstance(china_station,RttySpot)
         self.assertEqual(china_station.call,"BD7JZC")
         self.assertEqual(china_station.freq,7016.0)
-        self.assertEqual(china_station.stength,"9 dB")
+        self.assertEqual(china_station.strength,"9 dB")
         self.assertEqual(china_station.speed,"23 WPM")
         self.assertEqual(china_station.to_dict(),expected_dict)
