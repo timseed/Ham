@@ -32,7 +32,7 @@ expected_dict = {
     "op": "Op",
     "speed": "Speed",
     "spotter": "SP5MXG",
-    "stength": "Db",
+    "strength": "Db",
     "when_full": "1031Z",
     "when_no_sec": "1031Z",
 }

@@ -40,7 +40,7 @@ expected_dict ={'call': 'BD7JZC',
          'op': '',
          'speed': '23 WPM',
          'spotter': '<DU3TW-#>',
-         'stength': '9 dB',
+         'strength': '9 dB',
          'when_full': datetime(2021, 10, 8, 8, 56, 29),
          'when_no_sec': '08-Oct-2021 0856Z'}
 
