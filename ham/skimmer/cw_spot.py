@@ -16,7 +16,7 @@ class CwSpot:
     freq: float
     call: str
     when_no_sec: str
-    stength: str
+    strength: str
     speed: str
     op: str
     mode: str
@@ -29,7 +29,7 @@ class CwSpot:
             'freq': self.freq, 
             'call': self.call,
             'when_no_sec': self.when_no_sec,
-            'stength': self.stength,
+            'strength': self.stength,
             'speed': self.speed,
             'op': self.op,
             'mode': self.mode,
