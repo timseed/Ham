@@ -9,22 +9,27 @@ from datetime import datetime
 
 class LoadCluster:
 
-    def __init__(self,filename:str):
+    def __init__(self):
+        a=1
 
+    def fromfile(self,filename:str):
         # We want to process a Dx Cluster Spot file
-        self.lines=[]
+        self.spots=[]
         with open(filename,"rt") as data_in:
             for l in data_in.read().split('\n'):
                 if len(l):
                     spot = self.fromline(l)
-                    self.lines.append(spot)
+                    self.spots.append(spot)
         # And we now have a list of SkimmerSpot's
 
+    def empty(self):
+        self.spots=[]
+
     def get(self):
-        return self.lines
+        return self.spots
 
     def len(self):
-        return len(self.lines)
+        return len(self.spots)
 
     def fromline(self,l:str):
         spot = ClusterSpot(l[61:70].strip(),
