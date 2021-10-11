@@ -1,7 +1,10 @@
 from unittest import TestCase
-from datetime import datetime
+from datetime import datetime,timezone
 import pytz
 from ham.calc import Locator, WindForce
+from pprint import pprint
+
+maxDiff = None
 
 
 class TestCalcLocator(TestCase):
@@ -65,17 +68,22 @@ class TestCalcLocator(TestCase):
         sun_times = self.loc.calculate_sunrise_sunset(
             "PK05lm", calc_date=datetime(2020, 2, 14, 2, 2, 2)
         )
+        pprint(sun_times)
         self.assertEqual(
             sun_times,
             {
                 "evening_dawn": datetime(
-                    2020, 2, 14, 9, 59, 16, 330165, tzinfo=pytz.UTC
+                    2020, 2, 14, 9, 59, 16, 326990, tzinfo=timezone.utc
                 ),
                 "morning_dawn": datetime(
-                    2020, 2, 14, 21, 58, 50, 310771, tzinfo=pytz.UTC
+                    2020, 2, 14, 21, 58, 50, 308138, tzinfo=timezone.utc
                 ),
-                "sunrise": datetime(2020, 2, 14, 22, 21, 10, 881949, tzinfo=pytz.UTC),
-                "sunset": datetime(2020, 2, 14, 10, 21, 38, 521531, tzinfo=pytz.UTC),
+                "sunrise": datetime(
+                    2020, 2, 14, 22, 21, 10, 879360, tzinfo=timezone.utc
+                ),
+                "sunset": datetime(
+                    2020, 2, 14, 10, 21, 38, 518360, tzinfo=timezone.utc
+                ),
             },
         )
 

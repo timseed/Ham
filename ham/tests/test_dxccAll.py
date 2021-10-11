@@ -1,5 +1,6 @@
 from unittest import TestCase
 from ham.dxcc import DxccAll
+from pprint import pprint
 
 
 class TestDxccAll(TestCase):
@@ -167,8 +168,7 @@ class TestDxccAll(TestCase):
         "Kenya",
         "Kerguelen Islands",
         "Kermadec Islands",
-        "Kingman Reef",
-        "Kosovo",
+        "Kingdom of Eswatini",
         "Kure Island",
         "Kuwait",
         "Kyrgyzstan",
@@ -184,7 +184,6 @@ class TestDxccAll(TestCase):
         "Lord Howe Island",
         "Luxembourg",
         "Macao",
-        "Macedonia",
         "Macquarie Island",
         "Madagascar",
         "Madeira Islands",
@@ -229,6 +228,7 @@ class TestDxccAll(TestCase):
         "Niue",
         "Norfolk Island",
         "North Cook Islands",
+        "North Macedonia",
         "Northern Ireland",
         "Norway",
         "Ogasawara",
@@ -251,6 +251,7 @@ class TestDxccAll(TestCase):
         "Puerto Rico",
         "Qatar",
         "Republic of Korea",
+        "Republic of Kosovo",
         "Republic of South Sudan",
         "Republic of the Congo",
         "Reunion Island",
@@ -305,7 +306,6 @@ class TestDxccAll(TestCase):
         "Suriname",
         "Svalbard",
         "Swains Island",
-        "Swaziland",
         "Sweden",
         "Switzerland",
         "Syria",
@@ -530,6 +530,7 @@ class TestDxccAll(TestCase):
         self.assertEqual(self.dxcc_all.find("LU2BOB").Continent_Abbreviation, "SA")
 
     def test_country_list(self):
+        pprint(self.dxcc_all.countrylist)
         self.assertEqual(self.dxcc_all.countrylist, TestDxccAll.Country_List)
 
     def test_cq_zone_list(self):
