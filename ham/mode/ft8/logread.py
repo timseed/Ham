@@ -94,6 +94,10 @@ class LogRead:
         self.process()
         self.tod = TimeOfDay()
 
+    def load_file(self):
+        with open(self.filename, "rt") as log_file:
+            return log_file.read().split('\n')
+
     def process(self):
         """
         My log file looks something like this ... We only
@@ -116,8 +120,8 @@ class LogRead:
         """
         maidenhead = Locator()
         band = HamBand()
-        with open(self.filename, "rt") as log_file:
-            for line in log_file:
+        for line in self.load_file():
+            if len(line.strip()):
                 parts = line.split()
                 bearing_short_path = 0
                 distance_short_path_km = 0.0
@@ -128,9 +132,7 @@ class LogRead:
                             f"20{parts[0]}{parts[1]}", "%Y%m%d%H%M%S"
                         )
                         whn = whn_noutc.replace(tzinfo=pytz.UTC)
-                        aprox_lat, aprox_lon = Locator.locator_to_latlong(
-                            parts[7] + "LM"
-                        )
+                        aprox_lat, aprox_lon = Locator.locator_to_latlong(parts[7] + "LM")
                         bearing_short_path = maidenhead.calculate_heading(
                             self.my_qra, parts[7] + "LM"
                         )
@@ -159,9 +161,14 @@ class LogRead:
                                 heading_sp=bearing_short_path,
                                 distance_sp_km=distance_short_path_km,
                             )
+
                         )
+                        print("added")
                     except ValueError as ve:
                         print(f"{str(ve)} problem with {parts[0]}{parts[1]}")
+
+    def len(self):
+        return len(self.qso)
 
     def dump(self):
         pprint(self.qso)

@@ -45,18 +45,15 @@ expected_dict ={'call': 'BD7JZC',
          'when_no_sec': '08-Oct-2021 0856Z'}
 
 class TestCwSkimmer(TestCase):
+
+    @patch("builtins.open",mock_open(read_data=data))
     def setUp(self) -> None:
         """
         This runs before every test
         :return:
         """
-        a=1
-        
-        
-
-        
-
-      
+        self.cwloader = LoadCw("fake")
+            
     @patch("builtins.open",mock_open(read_data=data))
     def test_read(self):
         spots=LoadCw("fake_file")
@@ -69,3 +66,12 @@ class TestCwSkimmer(TestCase):
         self.assertEqual(china_station.speed,"23 WPM")
 
         self.assertEqual(china_station.to_dict(),expected_dict)
+
+    @patch("builtins.open",mock_open(read_data=data))
+    def test_line(self):
+        line=data.split('\n')[8]
+        bulk_china_station=self.cwloader.get()[8]
+        line_china_station=self.cwloader.fromline(line)
+        self.assertEqual(bulk_china_station.to_dict(), line_china_station.to_dict())
+
+
