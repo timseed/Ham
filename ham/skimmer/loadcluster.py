@@ -6,6 +6,12 @@ from datetime import datetime
 # G1XOW:     21207.0  PX8I         cq cq cq 55                    1032Z IO93',
 # G1XOW:     21207.0  PX8I         cq cq cq 55                    1032Z',
 
+# OH6BG-#:    3520.9  SM4CUQ       CW 39 dB 19 WPM CQ             0812Z
+# VE6WZ-#:   14100.0  W6WX         CW 12 dB 22 WPM NCDXF BCN      0812Z
+# IK4VET-#:  14028.0  9A9BB        CW  7 dB 25 WPM CQ             0812Z
+# BG4GOV-#:  21025.1  YC0RNC/1     CW 12 dB 18 WPM CQ             0812Z
+# VK4CT-#:   14058.0  F/HB9CBR/P   CW 11 dB 24 WPM CQ             0812Z
+# R9IR-#:    21020.0  UT2IY        CW  4 dB 26 WPM CQ             0812Z
 
 class LoadCluster:
 
@@ -32,8 +38,20 @@ class LoadCluster:
         return len(self.spots)
 
     def fromline(self,l:str):
-        spot = ClusterSpot(l[61:70].strip(),
-                               float(l[8:18]),
+
+        if (l[33:35].upper()=='CW'):
+            spot = ClusterSpot(l[61:70].strip(),
+                               float(l[11:18]),
+                               l[19:31].strip(),
+                               l[61:70].strip(),
+                               l[36:38].strip(),
+                               l[42:44],
+                               l[49:51],
+                               l[33:35].upper(),
+                               l.split(':')[0].strip())
+        else:
+            spot = ClusterSpot(l[61:70].strip(),
+                               float(l[11:18]),
                                l[19:31].strip(),
                                l[61:70].strip(),
                                "Db",
