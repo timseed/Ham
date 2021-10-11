@@ -25,7 +25,7 @@ class RttySpot:
     def to_dict(self):
         return {
             'when_full': self.when_full,
-            'freq': self.when_full, 
+            'freq': self.freq, 
             'call': self.call,
             'when_no_sec': self.when_no_sec,
             'stength': self.stength,

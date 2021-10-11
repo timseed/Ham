@@ -35,7 +35,7 @@ data="""2021-10-08 08:38:26Z    7028.5  JE1PMQ      08-Oct-2021 0838Z   11 dB  1
 2021-10-08 09:39:09Z    7013.0  JE1AZZ      08-Oct-2021 0939Z    8 dB  18 WPM  DE            <DU3TW-#>"""
 
 expected_dict ={'call': 'BD7JZC',
-         'freq': datetime(2021, 10, 8, 8, 56, 29),
+         'freq': 7016.0,
          'mode': '',
          'op': '',
          'speed': '23 WPM',
