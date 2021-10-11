@@ -3,7 +3,10 @@ from datetime import datetime
 
 class LoadRtty:
 
-    def __init__(self,filename:str):
+    def __init__(self):
+        a=1
+
+    def fromfile(self,filename:str):
 
         # We want to process a Skimmer RTTY Spot file
         self.lines=[]

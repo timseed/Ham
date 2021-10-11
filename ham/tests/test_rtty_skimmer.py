@@ -58,7 +58,8 @@ class TestRttySkimmer(TestCase):
       
     @patch("builtins.open",mock_open(read_data=data))
     def test_read(self):
-        spots=LoadRtty("fake_file")
+        spots=LoadRtty()
+        spots.fromfile("fake_file")
         self.assertEqual(spots.len(),27)
         china_station= spots.get()[8]   
         self.assertIsInstance(china_station,RttySpot)

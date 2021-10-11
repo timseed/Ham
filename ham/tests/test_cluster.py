@@ -39,7 +39,8 @@ class TestCluster(TestCase):
 
     @patch("builtins.open", mock_open(read_data=data))
     def test_read(self):
-        spots = LoadCluster("fake_file")
+        spots = LoadCluster()
+        spots.fromfile("fake")
         self.assertEqual(spots.len(), 10)
         ni_station = spots.get()[1]
         self.assertIsInstance(ni_station, ClusterSpot)
@@ -51,7 +52,8 @@ class TestCluster(TestCase):
 
     @patch("builtins.open", mock_open(read_data=data))
     def test_line(self):
-        spots = LoadCluster("fake_file")
+        spots = LoadCluster()
+        spots.fromfile("fake")
         ni_station = spots.fromline("SP5MXG:    21074.0  MI0JZZ       FT8 +02dB from IO65 2559Hz     1031Z")
         self.assertIsInstance(ni_station, ClusterSpot)
         self.assertEqual(ni_station.call, "MI0JZZ")
