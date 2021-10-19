@@ -125,6 +125,12 @@ class DxccAll(object):
                                 clean_prefix, tmp_parts_2 = self.correctdata(
                                     p, tmp_parts
                                 )
+                                #OC has /m /s
+                                tmp_cc =parts[7].split('/')[0].strip()
+                                #EU has *GM *IT9
+                                tmp_cc=tmp_cc.replace('*','')
+
+
                                 d = DxObj(
                                     call_starts=clean_prefix,
                                     country_name=tmp_parts_2[0],
@@ -134,7 +140,7 @@ class DxccAll(object):
                                     latitude=float(tmp_parts_2[4]),
                                     longitude=float(tmp_parts_2[5]),
                                     local_time_offset=float(tmp_parts_2[6]),
-                                    country_code=parts[8]
+                                    country_code=tmp_cc
                                 )
 
                                 self._dxcc_list[clean_prefix] = d
@@ -264,10 +270,54 @@ class DxccAll(object):
         ituzones.sort()
         return ituzones
 
+    def GetCountryCont(self,cont:str) -> list:
+        """
+        List of all cont 'X' countries
+        """
+        cty = list(
+            set([self._dxcc_list[k].Country_Code for k in self._dxcc_list.keys() if self._dxcc_list[k].Continent_Abbreviation==cont])
+        )
+        cty.sort()
+        return cty
+
     @property
-    def OCCOuntry(self) -> list:
+    def AFCountry(self) -> list:
+        """
+        List of all AF countries
+        """
+        return self.GetCountryCont('AF')
+
+    @property
+    def ASCountry(self) -> list:
+        """
+        List of all AS countries
+        """
+        return self.GetCountryCont('AS')
+
+    @property
+    def NACountry(self) -> list:
+        """
+        List of all NA countries
+        """
+        return self.GetCountryCont('NA')
+
+    @property
+    def EUCountry(self) -> list:
+        """
+        List of all EU countries
+        """
+        return self.GetCountryCont('EU')
+
+    @property
+    def OCCountry(self) -> list:
         """
         List of all OC countries
         """
-        #set([self._dxcc_list[k]. for k in self._dxcc_list.keys()])
-        return []
+        return self.GetCountryCont('OC')
+
+    @property
+    def SACountry(self) -> list:
+        """
+        List of all NA countries
+        """
+        return self.GetCountryCont('SA')
