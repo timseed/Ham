@@ -543,3 +543,6 @@ class TestDxccAll(TestCase):
         ''' Make sure this is a dict '''
         all_data=self.dxcc_all.all
         self.assertTrue(type(all_data) is dict)
+
+
+    

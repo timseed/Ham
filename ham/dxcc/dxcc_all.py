@@ -134,6 +134,7 @@ class DxccAll(object):
                                     latitude=float(tmp_parts_2[4]),
                                     longitude=float(tmp_parts_2[5]),
                                     local_time_offset=float(tmp_parts_2[6]),
+                                    country_code=parts[8]
                                 )
 
                                 self._dxcc_list[clean_prefix] = d
@@ -262,3 +263,11 @@ class DxccAll(object):
         )
         ituzones.sort()
         return ituzones
+
+    @property
+    def OCCOuntry(self) -> list:
+        """
+        List of all OC countries
+        """
+        #set([self._dxcc_list[k]. for k in self._dxcc_list.keys()])
+        return []
