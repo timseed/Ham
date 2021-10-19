@@ -538,3 +538,8 @@ class TestDxccAll(TestCase):
 
     def test_itu_zone_list(self):
         self.assertEqual(self.dxcc_all.ituzonelist, TestDxccAll.itu_zones)
+
+    def test_all(self):
+        ''' Make sure this is a dict '''
+        all_data=self.dxcc_all.all
+        self.assertTrue(type(all_data) is dict)

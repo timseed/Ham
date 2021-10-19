@@ -221,6 +221,13 @@ class DxccAll(object):
         return [a for a in self._dxcc_list]
 
     @property
+    def all(self) -> dict:
+        """
+        return a dict of all the DXCC Objects
+        """
+        return self._dxcc_list
+
+    @property
     def countrylist(self) -> list:
         """
         List of all Countries (not Prefixes) i.e. DU1,DU2,DU3 are just 1 Country.
