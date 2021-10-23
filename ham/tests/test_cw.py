@@ -141,3 +141,10 @@ class Testcw(TestCase):
         self.assertEqual(self.mycw.length_in_dits(self.mycw.cw_timing(self.Hi_Str)),50)
         self.assertEqual(self.mycw.length_in_dits(self.mycw.cw_timing(self.Cq_Str)),98)
         
+        self.assertEqual(self.mycw.length_in_dits(self.mycw.cw_timing(self.Hi_Str.upper())),50)
+        self.assertEqual(self.mycw.length_in_dits(self.mycw.cw_timing(self.Cq_Str.upper())),98)
+        
+        
+        self.assertEqual(self.mycw.length_in_dits(self.mycw.cw_timing(self.Hi_Str.lower())),50)
+        self.assertEqual(self.mycw.length_in_dits(self.mycw.cw_timing(self.Cq_Str.lower())),98)
+        
