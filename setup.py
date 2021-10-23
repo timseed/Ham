@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-requirements = 'wheel', 'ephem', 'pyserial', 'pyyaml', 'geojson','PyQt5'
+requirements = 'wheel', 'ephem', 'pyserial', 'pyyaml', 'geojson','PyQt5','scipy','numpy'
 for p in find_packages():
     print("Installing package "+str(p))
 setup(
