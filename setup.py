@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-requirements = 'wheel', 'ephem', 'pyserial', 'pyyaml', 'geojson','PyQt5'
+requirements = 'wheel', 'ephem', 'pyserial', 'pyyaml', 'geojson','PyQt6'
 for p in find_packages():
     print("Instaling ipackage "+str(p))
 setup(
