@@ -8,7 +8,7 @@ class i2_country_name(object):
 
 
     def __init__(self):
-        change={
+        self.change={
         'East Malaysia':'Malaysia',
         'West Malaysia':'Malaysia',
         'Hawaii':'USA',
