@@ -255,3 +255,53 @@ class DxccAll(object):
         )
         ituzones.sort()
         return ituzones
+
+
+    """
+    Calculate WPX Prefixes per Continent
+    This will yield the summaries in Pandas
+
+import pandas as pd
+def df_to_md(pd):
+    text=pd.to_markdown();
+    for a in text.split('\n'):
+        print(f"{a}")
+
+rec=AS_Prefix()
+df=pd.DataFrame.from_records(rec)
+df.columns=['country','pfx']
+df_to_md(df.groupby(by=['country']).agg({'pfx':'count'}).reset_index().sort_values(['pfx'],ascending=False))
+
+
+
+    """
+    def ContPrefix(self,cont:str) -> list:
+        rec=[]
+        for c in dx._dxcc_list.keys():
+            if dx._dxcc_list[c].Continent_Abbreviation==cont:
+              rec.append([dx._dxcc_list[c].Country_Name,c])
+        return rec
+
+    @property
+    def AS_Prefix(self):
+            return ContPrefix('AS')
+
+    @property
+    def EU_Prefix(self):
+            return ContPrefix('EU')
+
+    @property
+    def NA_Prefix(self):
+            return ContPrefix('NA')
+
+    @property
+    def SA_Prefix(self):
+            return ContPrefix('SA')
+
+    @property
+    def OC_Prefix(self):
+            return ContPrefix('OC')
+
+    @property
+    def AF_Prefix(self):
+            return ContPrefix('AF')

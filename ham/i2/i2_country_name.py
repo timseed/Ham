@@ -9,6 +9,7 @@ class i2_country_name(object):
 
     def __init__(self):
         self.change={
+        'Canary Islands':'Spain',
         'East Malaysia':'Malaysia',
         'West Malaysia':'Malaysia',
         'Hawaii':'USA',
