@@ -26,5 +26,5 @@ class TestDxccAll(TestCase):
             "Ascension Island": "UK",
             "European Turkey": "Turkey",
         }
-        for k, v in a.items():
+        for k, v in t.items():
             self.assertEqual(self.i2c.i2Name(k), v)

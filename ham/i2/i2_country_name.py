@@ -21,7 +21,7 @@ class i2_country_name(object):
         }
 
 
-    def i2Name(ctry:str)->str:
+    def i2Name(self, ctry:str)->str:
         if ctry in self.change:
             return self.change[ctry]
         else:
