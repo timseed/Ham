@@ -3,5 +3,6 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/ham/equipment/elecraft/kpa500" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/morse.py" vcs="Git" />
   </component>
 </project>
