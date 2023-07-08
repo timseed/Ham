@@ -1,30 +1,41 @@
-from ham.dxcc import DxccAll, dxobj
-import logging
-
-"""
-This is an API Class so I can try and speed up Node-Red data processing.
-
-"""
-
-
 from flask import Flask
-from flask_restx import Resource, Api
+from flask_classful import FlaskView
+from ham.dxcc import DxccAll
+
+dx = DxccAll()
+print("Dx initialized")
+# we'll make a list to hold some quotes for our app
+quotes = [
+    "A noble spirit embiggens the smallest man! ~ Jebediah Springfield",
+    "If there is a way to do it better... find it. ~ Thomas Edison",
+    "No one knows what he can do till he tries. ~ Publilius Syrus",
+]
 
 app = Flask(__name__)
-api = Api(app)
-dx=DxccAll()
-
-@api.route('/hello')
-class HelloWorld(Resource):
-    def get(self):
-        return {'hello': 'world'}
 
 
-@api.route('/call/<string:call>')
-class CallLookup(Resource):
-    def get(self,call):
-        global dx
-        return dx.find(call)
+class QuotesView(FlaskView):
+    # http://localhost:5000/quotes/
+    def index(self):
+        return "<br>".join(quotes)
 
-if __name__ == '__main__':
-    app.run(debug=True)
+
+class CallView(FlaskView):
+    def index(self):
+     # http://localhost:5000/call
+        return {"call": "callsign"}
+
+    def get(self, call):
+     # http://localhost:5000/call/M0FGC/
+        if call is not None:
+            dxo = dx.find(call)
+            return dxo.todict()
+        else:
+            return "Not Found", 404
+
+
+QuotesView.register(app)
+CallView.register(app)
+
+if __name__ == "__main__":
+    app.run()
