@@ -28,6 +28,7 @@ class CallView(FlaskView):
     def get(self, call):
      # http://localhost:5000/call/M0FGC/
         if call is not None:
+            print(f"call is {call}")
             dxo = dx.find(call)
             return dxo.todict()
         else:
