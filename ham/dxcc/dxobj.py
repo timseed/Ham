@@ -120,3 +120,18 @@ class DxObj(object):
     @property
     def Country_Code(self):
         return self._country_code
+
+    def todict(self)->dict:
+        d={}
+        d["call_starts"]=self._Call_Starts 
+        d["country_name"]=self._Country_Name 
+        d["cq_zone"]=self._CQ_Zone 
+        d["itu_zone"]=self._ITU_Zone 
+        d["continent"]=self._continent_abbreviation 
+        d["latitude"]=self._Latitude 
+        d["longitude"]=self._Longitude 
+        d["tz_offset"]=self._Local_time_offset 
+        d["country_code"]=self._country_code 
+        d["version"]=self._version 
+        return d
+

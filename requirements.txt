@@ -25,6 +25,9 @@ docutils
 entrypoints
 ephem
 execnet
+flask==2.1.2
+werkzeug==2.1.2
+flask_classful
 geojson
 idna
 imagesize
