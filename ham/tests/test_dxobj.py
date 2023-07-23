@@ -14,10 +14,11 @@ class TestDxObj(TestCase):
             latitude=15.0,
             longitude=120.0,
             local_time_offset=8.0,
+            country_code="pluto",
         )
         self.expected = (
             "DxObj(call_starts='OS',country_name='Outer Space',cq_zone=99,itu_zone=101,"
-            "continent_abbreviation='OS',latitude=15.0,longitude=120.0,local_time_offset=8.0)"
+            "continent_abbreviation='OS',latitude=15.0,longitude=120.0,local_time_offset=8.0,country_code='pluto')"
         )
 
     def test_instance(self):
@@ -52,6 +53,7 @@ class TestDxObj(TestCase):
             latitude=15.0,
             longitude=120.0,
             local_time_offset=8.0,
+            country_code="pluto",
         )
         assert self.dx == dx2
         # This only possible as there is a custom __eq__ method for this class

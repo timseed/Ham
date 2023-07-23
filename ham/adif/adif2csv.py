@@ -18,7 +18,7 @@ class Adif2Csv(object):
         print(''+a,end='')
     """
 
-    def __init__(self, all_lines_same=False):
+    def __init__(self, all_lines_same=False,IsWriteLogAdif=False):
         """
         Basic constructor
         :return:  None
@@ -27,6 +27,9 @@ class Adif2Csv(object):
         self.lines = []
         self.header = ""
         self.all_lines_same = all_lines_same
+        self.linestarts="<call" if not IsWriteLogAdif else "<QSO_DATE"
+        self.IsWriteLogAdif = IsWriteLogAdif
+
 
     def process(self, filename):
         """
@@ -38,11 +41,15 @@ class Adif2Csv(object):
         :param filename:
          :return:
         """
-        with open(filename, "rt") as f:
-            for line in f:
-                if line.startswith("<call"):
-                    self.lines.append(line)
-            f.close()
+        if not self.IsWriteLogAdif:
+            with open(filename, "rt") as f:
+                for line in f:
+                    if line.startswith(self.linestarts):
+                        self.lines.append(line)
+                f.close()
+        else:
+            data = open(filename, "rt").read()
+            self.lines =[a for a in re.sub(r'[ ]+', '', re.sub(r'[ ]+\n', '', data)).split('\n') if a.startswith(self.linestarts)]
         self.make_dict()
 
     def make_dict(self):
@@ -59,7 +66,7 @@ class Adif2Csv(object):
                 Finally stitch it together as a string - and we have the header
                 """
                 self.header = ",".join(
-                    [a[1:] for a in re.findall(r"<[a-z_]+", self.lines[0])]
+                    [a[1:] for a in re.findall(r"<[A-Za-z_]+", self.lines[0])]
                 )
             else:
                 print("Error No dictionary can be made - there is no data")
@@ -70,7 +77,7 @@ class Adif2Csv(object):
             Every line and place the tags into an array
             """
             for l in self.lines:
-                tmp = [a[1:] for a in re.findall(r"<[a-z_]+", l)]
+                tmp = [a[1:] for a in re.findall(r"<[A-Za-z_]+", l)]
                 head = head + tmp
                 # Do this to keep the list small
                 head = list(set(head))

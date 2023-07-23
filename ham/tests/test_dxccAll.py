@@ -1,5 +1,6 @@
 from unittest import TestCase
 from ham.dxcc import DxccAll
+from pprint import pprint
 
 
 class TestDxccAll(TestCase):
@@ -167,8 +168,7 @@ class TestDxccAll(TestCase):
         "Kenya",
         "Kerguelen Islands",
         "Kermadec Islands",
-        "Kingman Reef",
-        "Kosovo",
+        "Kingdom of Eswatini",
         "Kure Island",
         "Kuwait",
         "Kyrgyzstan",
@@ -184,7 +184,6 @@ class TestDxccAll(TestCase):
         "Lord Howe Island",
         "Luxembourg",
         "Macao",
-        "Macedonia",
         "Macquarie Island",
         "Madagascar",
         "Madeira Islands",
@@ -229,6 +228,7 @@ class TestDxccAll(TestCase):
         "Niue",
         "Norfolk Island",
         "North Cook Islands",
+        "North Macedonia",
         "Northern Ireland",
         "Norway",
         "Ogasawara",
@@ -251,6 +251,7 @@ class TestDxccAll(TestCase):
         "Puerto Rico",
         "Qatar",
         "Republic of Korea",
+        "Republic of Kosovo",
         "Republic of South Sudan",
         "Republic of the Congo",
         "Reunion Island",
@@ -305,7 +306,6 @@ class TestDxccAll(TestCase):
         "Suriname",
         "Svalbard",
         "Swains Island",
-        "Swaziland",
         "Sweden",
         "Switzerland",
         "Syria",
@@ -530,6 +530,7 @@ class TestDxccAll(TestCase):
         self.assertEqual(self.dxcc_all.find("LU2BOB").Continent_Abbreviation, "SA")
 
     def test_country_list(self):
+        pprint(self.dxcc_all.countrylist)
         self.assertEqual(self.dxcc_all.countrylist, TestDxccAll.Country_List)
 
     def test_cq_zone_list(self):
@@ -537,3 +538,149 @@ class TestDxccAll(TestCase):
 
     def test_itu_zone_list(self):
         self.assertEqual(self.dxcc_all.ituzonelist, TestDxccAll.itu_zones)
+
+    def test_all(self):
+        """Make sure this is a dict"""
+        all_data = self.dxcc_all.all
+        self.assertTrue(type(all_data) is dict)
+
+    def test_AF_Country(self):
+        self.maxDiff = None
+        af_cty_list = self.dxcc_all.AFCountry
+        expected = [
+            "3B6",
+            "3B8",
+            "3B9",
+            "3C",
+            "3C0",
+            "3DA",
+            "3V",
+            "3X",
+            "3Y",
+            "5A",
+            "5H",
+            "5N",
+            "5R",
+            "5T",
+            "5U",
+            "5V",
+            "5X",
+            "5Z",
+            "6W",
+            "7P",
+            "7Q",
+            "7X",
+            "9G",
+            "9J",
+            "9L",
+            "9Q",
+            "9U",
+            "9X",
+            "A2",
+            "C5",
+            "C9",
+            "CN",
+            "CT3",
+            "D2",
+            "D4",
+            "D6",
+            "E3",
+            "EA8",
+            "EA9",
+            "EL",
+            "ET",
+            "FH",
+            "FR",
+            "FT",
+            "IG9",
+            "J2",
+            "J5",
+            "S0",
+            "S7",
+            "S9",
+            "ST",
+            "SU",
+            "T5",
+            "TJ",
+            "TL",
+            "TN",
+            "TR",
+            "TT",
+            "TU",
+            "TY",
+            "TZ",
+            "V5",
+            "VK0H",
+            "VQ9",
+            "XT",
+            "Z2",
+            "Z8",
+            "ZD7",
+            "ZD8",
+            "ZD9",
+            "ZS",
+            "ZS8",
+        ]
+        self.assertTrue(type(af_cty_list) is list)
+        self.assertEqual(expected, af_cty_list)
+
+    def test_AS_Country(self):
+        self.maxDiff = None
+        as_cty_list = self.dxcc_all.ASCountry
+        expected = ['1S',
+ '3W',
+ '4J',
+ '4L',
+ '4S',
+ '4X',
+ '5B',
+ '7O',
+ '8Q',
+ '9K',
+ '9M2',
+ '9N',
+ '9V',
+ 'A4',
+ 'A5',
+ 'A6',
+ 'A7',
+ 'A9',
+ 'AP',
+ 'BS7',
+ 'BV',
+ 'BV9P',
+ 'BY',
+ 'E4',
+ 'EK',
+ 'EP',
+ 'EX',
+ 'EY',
+ 'EZ',
+ 'HL',
+ 'HS',
+ 'HZ',
+ 'JA',
+ 'JD',
+ 'JT',
+ 'JY',
+ 'OD',
+ 'P5',
+ 'S2',
+ 'TA',
+ 'UA9',
+ 'UK',
+ 'UN',
+ 'VR',
+ 'VU',
+ 'VU4',
+ 'VU7',
+ 'XU',
+ 'XW',
+ 'XX9',
+ 'XZ',
+ 'YA',
+ 'YI',
+ 'YK',
+ 'ZC4']
+        self.assertTrue(type(as_cty_list) is list)
+        self.assertEqual(expected, as_cty_list)

@@ -4,17 +4,14 @@ import re
 import ham.dxcc
 from ham.dxcc.dxobj import DxObj
 from typing import Optional
+import pandas as pd
 
 
 class DxccAll(object):
-    """
-
-    """
+    """ """
 
     def __init__(self):
-        """
-
-        """
+        """ """
         self._dxcc_list = {}
         self.logger = logging.getLogger(__name__)
         formatter = logging.Formatter(
@@ -74,7 +71,9 @@ class DxccAll(object):
                 new_itu_zone = new_itu_zone.replace("[", "").replace("]", "")
                 # Make new tuple
                 #
-                x = str(new_itu_zone,)
+                x = str(
+                    new_itu_zone,
+                )
                 dx_rec = dx_rec[:2] + x + dx_rec[3:]
             m_cont = re.search(r"({[0-9]+})", prefix)
             if m_cont is not None:
@@ -84,7 +83,9 @@ class DxccAll(object):
                 new_cont = new_cont.replace("{", "").replace("}", "")
                 # Make new tuple
                 #
-                x = str(new_cont,)
+                x = str(
+                    new_cont,
+                )
                 dx_rec = dx_rec[:3] + x + dx_rec[4:]
 
         return prefix, dx_rec
@@ -125,6 +126,11 @@ class DxccAll(object):
                                 clean_prefix, tmp_parts_2 = self.correctdata(
                                     p, tmp_parts
                                 )
+                                # OC has /m /s
+                                tmp_cc = parts[7].split("/")[0].strip()
+                                # EU has *GM *IT9
+                                tmp_cc = tmp_cc.replace("*", "")
+
                                 d = DxObj(
                                     call_starts=clean_prefix,
                                     country_name=tmp_parts_2[0],
@@ -134,6 +140,7 @@ class DxccAll(object):
                                     latitude=float(tmp_parts_2[4]),
                                     longitude=float(tmp_parts_2[5]),
                                     local_time_offset=float(tmp_parts_2[6]),
+                                    country_code=tmp_cc,
                                 )
 
                                 self._dxcc_list[clean_prefix] = d
@@ -158,7 +165,6 @@ class DxccAll(object):
         return len(self._dxcc_list)
 
     def show(self, dx_station):
-
         for dx in self._dxcc_list:
             if dx_station.startswith(dx):
                 self._dxcc_list[dx].show()
@@ -221,6 +227,13 @@ class DxccAll(object):
         return [a for a in self._dxcc_list]
 
     @property
+    def all(self) -> dict:
+        """
+        return a dict of all the DXCC Objects
+        """
+        return self._dxcc_list
+
+    @property
     def countrylist(self) -> list:
         """
         List of all Countries (not Prefixes) i.e. DU1,DU2,DU3 are just 1 Country.
@@ -256,52 +269,110 @@ class DxccAll(object):
         ituzones.sort()
         return ituzones
 
+    def df_to_md(pd):
+        """
+        Calculate WPX Prefixes per Continent
+        This will yield the summaries in Pandas
+        """
+        text = pd.to_markdown()
+        for a in text.split("\n"):
+            print(f"{a}")
 
-    """
-    Calculate WPX Prefixes per Continent
-    This will yield the summaries in Pandas
+        rec = AS_Prefix()
+        df = pd.DataFrame.from_records(rec)
+        df.columns = ["country", "pfx"]
+        df_to_md(
+            df.groupby(by=["country"])
+            .agg({"pfx": "count"})
+            .reset_index()
+            .sort_values(["pfx"], ascending=False)
+        )
 
-import pandas as pd
-def df_to_md(pd):
-    text=pd.to_markdown();
-    for a in text.split('\n'):
-        print(f"{a}")
-
-rec=AS_Prefix()
-df=pd.DataFrame.from_records(rec)
-df.columns=['country','pfx']
-df_to_md(df.groupby(by=['country']).agg({'pfx':'count'}).reset_index().sort_values(['pfx'],ascending=False))
-
-
-
-    """
-    def ContPrefix(self,cont:str) -> list:
-        rec=[]
+    def ContPrefix(self, cont: str) -> list:
+        rec = []
         for c in dx._dxcc_list.keys():
-            if dx._dxcc_list[c].Continent_Abbreviation==cont:
-              rec.append([dx._dxcc_list[c].Country_Name,c])
+            if dx._dxcc_list[c].Continent_Abbreviation == cont:
+                rec.append([dx._dxcc_list[c].Country_Name, c])
         return rec
 
     @property
     def AS_Prefix(self):
-            return ContPrefix('AS')
+        return ContPrefix("AS")
 
     @property
     def EU_Prefix(self):
-            return ContPrefix('EU')
+        return ContPrefix("EU")
 
     @property
     def NA_Prefix(self):
-            return ContPrefix('NA')
+        return ContPrefix("NA")
 
     @property
     def SA_Prefix(self):
-            return ContPrefix('SA')
+        return ContPrefix("SA")
 
     @property
     def OC_Prefix(self):
-            return ContPrefix('OC')
+        return ContPrefix("OC")
 
     @property
     def AF_Prefix(self):
-            return ContPrefix('AF')
+        return ContPrefix("AF")
+
+    def GetCountryCont(self, cont: str) -> list:
+        """
+        List of all cont 'X' countries
+        """
+        cty = list(
+            set(
+                [
+                    self._dxcc_list[k].Country_Code
+                    for k in self._dxcc_list.keys()
+                    if self._dxcc_list[k].Continent_Abbreviation == cont
+                ]
+            )
+        )
+        cty.sort()
+        return cty
+
+    @property
+    def AFCountry(self) -> list:
+        """
+        List of all AF countries
+        """
+        return self.GetCountryCont("AF")
+
+    @property
+    def ASCountry(self) -> list:
+        """
+        List of all AS countries
+        """
+        return self.GetCountryCont("AS")
+
+    @property
+    def NACountry(self) -> list:
+        """
+        List of all NA countries
+        """
+        return self.GetCountryCont("NA")
+
+    @property
+    def EUCountry(self) -> list:
+        """
+        List of all EU countries
+        """
+        return self.GetCountryCont("EU")
+
+    @property
+    def OCCountry(self) -> list:
+        """
+        List of all OC countries
+        """
+        return self.GetCountryCont("OC")
+
+    @property
+    def SACountry(self) -> list:
+        """
+        List of all NA countries
+        """
+        return self.GetCountryCont("SA")

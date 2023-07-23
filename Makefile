@@ -2,6 +2,8 @@
 
 PYSRC = ham
 PYTEST = ham/tests
+PYDATA = $(ham)/ham/dxcc/data/
+ROOT_DIR:=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 
 
 VENV_NAME?=pe310
@@ -9,7 +11,7 @@ VENV_ACTIVATE=. ~/$(VENV_NAME)/bin/activate
 PYTHON=~/${VENV_NAME}/bin/python3
 PIP = pip3
 PYCOV = $(PYTHON) -m coverage
-Package = ham-1.8.0.tar.gz
+Package = ham-1.20.0.tar.gz
 
 objects := $(patsubst %.py,$(Package).tar.gz,$(wildcard *.py))
 
@@ -52,3 +54,19 @@ bump-minor:
 bump-patch:
 	$(PYTHON) -m bumpversion patch --tag --commit
 
+update-data:
+	$(info  "Updating cty.dat"	)
+	$(info  "Makefile is at "$(ROOT_DIR) )
+	$(info  "Put cty.dat to " $(ROOT_DIR)$(PYDATA))
+	$(info  wget http://www.country-files.com/cty/cty.dat -O $(ROOT_DIR)$(PYDATA)"cty.dat" )
+	wget http://www.country-files.com/cty/cty.dat -O $(ROOT_DIR)$(PYDATA)"cty.dat" 
+	$(info  "Now getting MASTER.SCP")
+	$(info  "Put MASTER.SCP to " $(ROOT_DIR)$(PYDATA))
+	$(info  wget http://www.supercheckpartial.com/MASTER.SCP -O $(ROOT_DIR)$(PYDATA)"MASTER.SCP")
+	wget http://www.supercheckpartial.com/MASTER.SCP -O $(ROOT_DIR)$(PYDATA)"MASTER.SCP"
+	$(info  "")
+	$(info  "")
+	$(info  "Data Files need adding in Git. And a new version needs to be installed.")
+	$(info  "")
+	$(info  "")
+	$(info  "Failing to do this will mean you use the old data.")

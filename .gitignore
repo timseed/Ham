@@ -1,10 +1,13 @@
 .DS_Store
 .coverage
 .idea/
+.ipynb_checkpoints/
 unused/
 __pycache__/
 build/
 dist/
+ham.egg-info/
+*.log
 cty-2604/
 *.json
 *.pkl

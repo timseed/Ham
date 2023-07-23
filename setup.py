@@ -1,11 +1,11 @@
 from setuptools import setup, find_packages
 
-requirements = 'wheel', 'ephem', 'pyserial', 'pyyaml', 'geojson','PyQt6'
+requirements = 'wheel', 'ephem', 'pyserial', 'pyyaml', 'geojson','PyQt5','scipy','numpy'
 for p in find_packages():
-    print("Instaling ipackage "+str(p))
+    print("Installing package "+str(p))
 setup(
     name='ham',
-    version='1.8.0',
+    version='1.20.0',
     packages=find_packages(),
     include_package_data=True, #Uses Manifest.IN
     url='',
@@ -16,6 +16,7 @@ setup(
     install_requires=requirements,
     extras_require={
         'dev': [
+            'bumpversion',
             'pytest',
             'pytest-pep8',
             'pytest-cov',
@@ -23,11 +24,12 @@ setup(
             'recommonmark',
             'black',
             'pylint',
-            'mock_pyserial'
+            'mock_pyserial',
+            'mock'
         ]},
     #Dev can be triggered by
     #python setup.py sdist
-    #pip install dist/ham-1.8.0.tar.gz[dev]
+    #pip install dist/ham-1.20.0.tar.gz[dev]
     #
 )
 

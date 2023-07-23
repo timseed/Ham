@@ -16,6 +16,7 @@ class DxObj(object):
         latitude,
         longitude,
         local_time_offset,
+        country_code,
     ):
         """
         Create a Country - note this is using the CallSign Prefix
@@ -27,6 +28,7 @@ class DxObj(object):
         :param latitude:
         :param longitude:
         :param local_time_offset:
+        :param country_code,
         :return:
         """
         self._Call_Starts = call_starts
@@ -37,8 +39,9 @@ class DxObj(object):
         self._Latitude = latitude
         self._Longitude = longitude
         self._Local_time_offset = local_time_offset
+        self._country_code = country_code
         self.logger = logging.getLogger(__name__)
-        self._version = "1.0.1"
+        self._version = "1.0.2"
 
     def show(self):
         print(f"{self.dump()}")
@@ -65,6 +68,7 @@ class DxObj(object):
             and self.Latitude == other.Latitude
             and self.ITU_Zone == other.ITU_Zone
             and self.CQ_Zone == other.CQ_Zone
+            and self.Country_Code == other.Country_Code
         )
 
     def __repr__(self):
@@ -78,7 +82,7 @@ class DxObj(object):
         return str.format(
             f"DxObj(call_starts='{self.Call_Starts}',country_name='{self.Country_Name}',cq_zone={self.CQ_Zone},itu_zone={self.ITU_Zone},"
             f"continent_abbreviation='{self.Continent_Abbreviation}',latitude={self.Latitude},"
-            f"longitude={self.Longitude},local_time_offset={self.Local_time_offset})"
+            f"longitude={self.Longitude},local_time_offset={self.Local_time_offset},country_code='{self.Country_Code}')"
         )
 
     @property
@@ -112,3 +116,22 @@ class DxObj(object):
     @property
     def Call_Starts(self):
         return self._Call_Starts
+
+    @property
+    def Country_Code(self):
+        return self._country_code
+
+    def todict(self)->dict:
+        d={}
+        d["call_starts"]=self._Call_Starts 
+        d["country_name"]=self._Country_Name 
+        d["cq_zone"]=self._CQ_Zone 
+        d["itu_zone"]=self._ITU_Zone 
+        d["continent"]=self._continent_abbreviation 
+        d["latitude"]=self._Latitude 
+        d["longitude"]=self._Longitude 
+        d["tz_offset"]=self._Local_time_offset 
+        d["country_code"]=self._country_code 
+        d["version"]=self._version 
+        return d
+

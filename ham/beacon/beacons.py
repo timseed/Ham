@@ -3,7 +3,7 @@ import logging
 import sys
 import time
 from enum import Enum
-
+from ham.beacon.set_k3_freq import SetK3Freq
 __author__ = "timseed"
 
 
@@ -403,15 +403,3 @@ class Beacons(object):
         self.logger.info(str.format("Dumping Band ID {}", band_id))
         for b in self.beacons:
             self.logger.info(str.format("Time offset {} ", b.band_time[band_id]))
-
-
-if __name__ == "__main__":
-    logger = logging.getLogger(__name__)
-    formatter = logging.Formatter(" ")
-    handler = logging.StreamHandler(sys.stdout)
-    handler.setLevel(logging.INFO)
-    handler.setFormatter(formatter)
-    dx = Beacons()
-    dx.SetBand(int(sys.argv[3]))
-    dx.beacon_start(timeout=5000)
-    dx.dump_band(4)
